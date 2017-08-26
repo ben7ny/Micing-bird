@@ -77,8 +77,12 @@ body {
       cursor: pointer;
     }
 
-    .links-container .navbar-link:hover {
+ .links-container .navbar-link:hover {
      color: rgb(233,50,117);
+ }
+
+ .links-container.navbar-link:active {
+   background-color: white;
  }
 
 .clearfix::after {
@@ -95,4 +99,8 @@ body {
    display: block;
    height: 0;
    clear: both;
+}
+
+.navbar-link:active {
+  background-color: white;
 }
