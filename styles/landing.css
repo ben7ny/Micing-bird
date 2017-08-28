@@ -26,13 +26,13 @@ body.landing {
     text-shadow: 1px 1px 0px rgb(58,23,63);
 }
 
-.selling-point {
+.selling-points {
     position: relative;
 }
 
 .point {
     position: relative;
-    width: 33.3%;
+    /*width: 33.3%;*/
     padding: 2rem;
     text-align: center;
 }
