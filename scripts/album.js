@@ -50,11 +50,18 @@ var createSongRow = function(songNumber, songName, songLength) {
     if (currentlyPlayingSongNumber !== songNumber) {
       $(this).html(pauseButtonTemplate);
       setSong(songNumber)
+      currentSoundFile.play();
       updatePlayerBarSong();
     } else if (currentlyPlayingSongNumber === songNumber) {
-      $(this).html(playButtonTemplate);
-      $('.main-controls .play-pause').html(playerBarPlayButton);
-      setSong(null)
+      if (currentSoundFile.isPaused()) {
+          $(this).html(pauseButtonTemplate);
+          $('.main-controls .play-pause').html(playerBarPauseButton);
+          currentSoundFile.play();
+      } else {
+          $(this).html(playButtonTemplate);
+          $('.main-controls .play-pause').html(playerBarPlayButton);
+          currentSoundFile.pause();
+      }
     }
 
   };
@@ -94,6 +101,7 @@ var nextSong = function() {
 
   currentlyPlayingSongNumber = currentSongIndex + 1;
   currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+  setSong(currentlyPlayingSongNumber)
   currentSoundFile.play();
   updatePlayerBarSong();
 
@@ -117,6 +125,7 @@ var previousSong = function() {
 
   currentlyPlayingSongNumber = currentSongIndex + 1;
   currentSongFromAlbum = currentAlbum.songs[currentSongIndex];
+  setSong(currentlyPlayingSongNumber)
   currentSoundFile.play();
   updatePlayerBarSong();
 
@@ -128,6 +137,10 @@ var previousSong = function() {
   $previousSongNumberCell.html(pauseButtonTemplate);
   $lastSongNumberCell.html(lastSongNumber);
 };
+
+var togglePlayFromPlayerBar = function() {
+
+}
 
 var $albumTitle = $('.album-view-title');
 var $albumArtist = $('.album-view-artist');
@@ -184,9 +197,11 @@ var currentVolume = 80;
 
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
+var $playPauseButton = $('.main-controls .play-pause');
 
 $(document).ready(function() {
   setCurrentAlbum(albumPicasso);
   $previousButton.click(previousSong);
   $nextButton.click(nextSong);
+  $playPauseButton.click(togglePlayFromPlayerBar);
 });
