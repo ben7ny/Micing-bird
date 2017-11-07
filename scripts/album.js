@@ -139,6 +139,19 @@ var previousSong = function() {
 };
 
 var togglePlayFromPlayerBar = function() {
+  // var songNumberCell = $(this).find('.song-item-number');
+  if (currentSoundFile.isPaused()) {
+        //  songNumberCell.html(pauseButtonTemplate);
+        $(this).html(pauseButtonTemplate);
+        $('.main-controls .play-pause').html(playerBarPauseButton);
+        currentSoundFile.play();
+  }else {
+        // songNumberCell.html(playButtonTemplate);
+        $(this).html(playButtonTemplate);
+        $('.main-controls .play-pause').html(playerBarPlayButton);
+        currentSoundFile.pause();
+
+  }
 
 }
 
