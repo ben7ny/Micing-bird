@@ -37,7 +37,7 @@ var createSongRow = function(songNumber, songName, songLength) {
   '<tr class="album-view-song-item">'
   + '  <td class="song-item-number" data-song-number="' + songNumber + '">' + songNumber + '</td>'
   + '  <td class="song-item-title">' + songName + '</td>'
-  + '  <td class="song-item-duration">' + songLength + '</td>'
+  + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
   + '</tr>'
   ;
 
@@ -201,11 +201,40 @@ var updateSeekBarWhileSongPlays = function() {
              // #11
              var seekBarFillRatio = this.getTime() / this.getDuration();
              var $seekBar = $('.seek-control .seek-bar');
+             var remainingTime = this.getDuration() - this.getTime();
 
+             setCurrentTimeInPlayerBar(filterTimeCode(this.getTime()));
+             setTotalTimeInPlayerBar(filterTimeCode(remainingTime));
              updateSeekPercentage($seekBar, seekBarFillRatio);
          });
      }
  };
+
+
+
+function setCurrentTimeInPlayerBar(currentTime){
+    $(".current-time").text(currentTime);
+}
+
+
+function setTotalTimeInPlayerBar(totalTime){
+    $(".total-time").text(totalTime);
+}
+
+
+function filterTimeCode(timeInSeconds){
+    var secondAndMiliSecond = parseFloat(timeInSeconds);
+    var getRideofMiliSEcond = Math.floor(secondAndMiliSecond);
+    var getMins = getRideofMiliSEcond / 60;
+        getMins = Math.floor(getMins);
+    var getSec = getRideofMiliSEcond % 60;
+      if(getSec > 9 ) {
+        var finalTime = getMins + ":" + getSec;
+        return finalTime;
+    } else
+        var finalTimeWithZero = getMins + ":" + 0 + getSec;
+        return finalTimeWithZero;
+    }
 
 var updateSeekPercentage = function($seekBar, seekBarFillRatio) {
     var offsetXPercent = seekBarFillRatio * 100;
@@ -221,25 +250,7 @@ var updateSeekPercentage = function($seekBar, seekBarFillRatio) {
  var setupSeekBars = function() {
       var $seekBars = $('.player-bar .seek-bar');
 
-      // $seekBars.click(function(event) {
-      //     var offsetX = event.pageX - $(this).offset().left;
-      //     var barWidth = $(this).width();
-      //     var seekBarFillRatio = offsetX / barWidth;
-      //
-      //     updateSeekPercentage($(this), seekBarFillRatio);
-      // });
-      // $seekBars.find('.thumb').mousedown(function(event) {
-      //    // #8
-      //    var $seekBar = $(this).parent();
-      //
-      //    // #9
-      //    $(document).bind('mousemove.thumb', function(event){
-      //        var offsetX = event.pageX - $seekBar.offset().left;
-      //        var barWidth = $seekBar.width();
-      //        var seekBarFillRatio = offsetX / barWidth;
-      //
-      //        updateSeekPercentage($seekBar, seekBarFillRatio);
-      //    });
+      
 
       $seekBars.click(function(event) {
         var offsetX = event.pageX - $(this).offset().left;
