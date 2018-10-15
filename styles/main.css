@@ -39,6 +39,8 @@
     position: relative;
     left: 2rem;
     cursor: pointer;
+    width: 70px;
+    height: 40px;
 }
 
 .navbar .links-container {
