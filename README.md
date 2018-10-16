@@ -11,7 +11,7 @@ Micing Bird is a simple replica of Spotify music app. It's built upon mobile-fir
 ## Built With
 
 * [jQuery](https://jquery.com) - Javascript library used
-* [Buzz](hhttp://buzz.jaysalvat.com) - Javascript HTML5 Audio library
+* [Buzz](http://buzz.jaysalvat.com) - Javascript HTML5 Audio library
 
 
 ## Authors
